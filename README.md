@@ -1,1 +1,1 @@
-# cloud-native-computing-gc
+# Grupparbete(individuellt) i kursen Cloud Native Computing
