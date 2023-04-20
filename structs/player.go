@@ -36,7 +36,7 @@ func randomName()(fullname string){
 	return
 }
 
-func AddRandomPlayer()bool{
+func AddRandomPlayerWithTeamID(id int)bool{
 	db, err := gorm.Open(sqlite.Open("db/gc.db"), &gorm.Config{})
 	if err != nil {
 		return false
@@ -45,7 +45,7 @@ func AddRandomPlayer()bool{
 	db.AutoMigrate(&Player{})
 
 	fullName := randomName()
-	teamId := RandomTeamID()
+	teamId := id
 
 	jerseyNumber := rand.Int63n(100)
 	birthYear := rand.Int63n(5) + 2000
@@ -57,7 +57,7 @@ func AddRandomPlayer()bool{
 	return true
 }
 
-func AddRandomPlayerForTeams()bool {
+func AddRandomPlayersForTeams()bool {
 
 	db, err := gorm.Open(sqlite.Open("db/gc.db"), &gorm.Config{})
 	if err != nil {
@@ -66,9 +66,12 @@ func AddRandomPlayerForTeams()bool {
 
 	var teams []Team
 
-	db.Model(&Team{}).Take(teams)
+	db.Find(&teams)
 
 	for i := 0; i < len(teams); i++ {
+		for j := 0; j < 5; j++ {
+			AddRandomPlayerWithTeamID(teams[i].ID)
+		}
 		
 	}
 

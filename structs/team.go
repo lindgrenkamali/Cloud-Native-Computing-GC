@@ -20,19 +20,21 @@ var names = [20]string{"Hawks", "Eagels", "Bulls", "Titans",
 	"Parrots", "Dolphins", "Panthers", "Jaguars", "Capybaras",
 	"Dinosaurs", "Rocks", "Meteors", "Alligators", "Raiders"}
 
-func AddRandomTeam()bool {
+func AddRandomTeams()bool {
 	db, err := gorm.Open(sqlite.Open("db/gc.db"), &gorm.Config{})
 	if err != nil {
 		return false
 	}
 
 	db.AutoMigrate(&Team{})
-	var count int64
+	var cities []City
 
+	db.Find(&cities)
 
-	db.Model(&City{}).Count(&count)
-
-	randCityId := rand.Int63n(count)
+	for i := 0; i < 20; i++ {
+	
+	citiesCount := len(cities)
+	randCityId := cities[rand.Intn(citiesCount)].Id
 	var city City
 	db.First(&city, randCityId)
 
@@ -41,7 +43,7 @@ func AddRandomTeam()bool {
 	team := Team {Name: city.Name + " " + randName, CityID: city.Id, FoundedYear: rand.Intn(40) + 1980}
 
 	db.Create(&team)
-
+}
 	return true
 }
 
@@ -57,3 +59,4 @@ func RandomTeamID() int64{
 
 	return rand.Int63n(teamCount)
 }
+
