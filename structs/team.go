@@ -60,3 +60,13 @@ func RandomTeamID() int64{
 	return rand.Int63n(teamCount)
 }
 
+func ReturnAllTeams()[]Team{
+	db, err := gorm.Open(sqlite.Open("db/gc.db"), &gorm.Config{})
+	if err != nil {
+		return []Team{}
+	}
+	var teams []Team
+
+	db.Find(&teams)
+	return teams
+}
