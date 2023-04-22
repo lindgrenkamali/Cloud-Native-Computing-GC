@@ -10,11 +10,12 @@ import (
 type Player struct {
 	ID           int
 	Name         string
+	Team		 *Team
 	TeamID       int
-	Team         Team
 	JerseyNumber int
 	BirthYear    int
 }
+
 
 var forenames = [20]string{"Anna", "Lisa", "Emil", "Carl", "Rick",
 	"Elon", "Steve", "Juli", "Filip", "Stefan", "Anders", "Annika",
@@ -37,7 +38,7 @@ func randomName()(fullname string){
 }
 
 func AddRandomPlayerWithTeamID(id int)bool{
-	db, err := gorm.Open(sqlite.Open("db/gc.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
 	if err != nil {
 		return false
 	}
@@ -59,7 +60,7 @@ func AddRandomPlayerWithTeamID(id int)bool{
 
 func AddRandomPlayersForTeams()bool {
 
-	db, err := gorm.Open(sqlite.Open("db/gc.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
 	if err != nil {
 		return false
 	}
