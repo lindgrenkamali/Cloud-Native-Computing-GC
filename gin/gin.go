@@ -14,3 +14,9 @@ func Home(c *gin.Context) {
 func Team(c *gin.Context) {
 	c.JSON(http.StatusOK, structs.ReturnAllTeams())
 }
+
+func TeamById(c *gin.Context){
+	stringId := c.Param("id")
+	
+	c.JSON(http.StatusOK, structs.ReturnTeamByID(stringId))
+}

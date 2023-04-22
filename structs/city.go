@@ -8,7 +8,7 @@ import (
 )
 
 type City struct{
-	Id int
+	ID int
 	Name string
 }
 
@@ -26,7 +26,7 @@ func RandomCity()(city string){
 }
 
 func AddCities()bool{
-	db, err := gorm.Open(sqlite.Open("db/gc.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
 	if err != nil {
 		return false
 	}
@@ -39,7 +39,7 @@ func AddCities()bool{
 	if(count < 1){
 	
 	for i := 0; i <= len(cities) -1; i++ {
-        tempCity := City {Id: i+1, Name: cities[i]}
+        tempCity := City {ID: i+1, Name: cities[i]}
 		db.Create(&tempCity)
     }
 }
