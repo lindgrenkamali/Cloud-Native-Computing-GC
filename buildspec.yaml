@@ -7,6 +7,4 @@ phases:
       - docker login -u David.Lindgren.Kamali -p yacloud1 https://git.systementor.se
       - docker push git.systementor.se/David.Lindgren.Kamali/gc
 artifacts:
-  files:
-    - "git.systementor.se/David.Lindgren.Kamali/gc.tar"
   name: testimage_${GOOS}_${GOARCH}_$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
