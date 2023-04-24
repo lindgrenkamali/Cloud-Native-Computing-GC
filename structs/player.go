@@ -10,12 +10,11 @@ import (
 type Player struct {
 	ID           int
 	Name         string
-	Team		 *Team
+	Team         *Team
 	TeamID       int
 	JerseyNumber int
 	BirthYear    int
 }
-
 
 var forenames = [20]string{"Anna", "Lisa", "Emil", "Carl", "Rick",
 	"Elon", "Steve", "Juli", "Filip", "Stefan", "Anders", "Annika",
@@ -25,7 +24,7 @@ var surnames = [20]string{"Lindgren", "Lindqvist", "Larsson", "Eliasson", "Hägg
 	"Höglund", "Löfven", "Thunberg", "Gustafsson", "Djarin", "Skywalker", "Jones", "Wayne", "Ågren", "Munther",
 	"Maggio", "Timell", "Johansson"}
 
-func randomName()(fullname string){
+func randomName() (fullname string) {
 	randomNumber1 := rand.Int63n(20)
 	randomNumber2 := rand.Int63n(20)
 
@@ -37,7 +36,7 @@ func randomName()(fullname string){
 	return
 }
 
-func AddRandomPlayerWithTeamID(id int)bool{
+func AddRandomPlayerWithTeamID(id int) bool {
 	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
 	if err != nil {
 		return false
@@ -50,15 +49,15 @@ func AddRandomPlayerWithTeamID(id int)bool{
 
 	jerseyNumber := rand.Int63n(100)
 	birthYear := rand.Int63n(5) + 2000
-	
-	p := Player {Name: fullName, TeamID: int(teamId), JerseyNumber: int(jerseyNumber), BirthYear: int(birthYear)}
+
+	p := Player{Name: fullName, TeamID: int(teamId), JerseyNumber: int(jerseyNumber), BirthYear: int(birthYear)}
 
 	db.Create(&p)
 
 	return true
 }
 
-func AddRandomPlayersForTeams()bool {
+func AddRandomPlayersForTeams() bool {
 
 	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
 	if err != nil {
@@ -73,10 +72,24 @@ func AddRandomPlayersForTeams()bool {
 		for j := 0; j < 5; j++ {
 			AddRandomPlayerWithTeamID(teams[i].ID)
 		}
-		
+
 	}
 
 	db.AutoMigrate(&Player{})
 
 	return true
+}
+
+func ReturnPlayerByID(id string) Player {
+	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
+	if err != nil {
+		return Player{}
+	}
+
+	var player Player
+
+	db.First(&player, id)
+
+	return player
+
 }

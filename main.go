@@ -18,6 +18,7 @@ func main() {
 	r.GET("/api/team", ginning.Team)
 	r.GET("/api/david", persons.David)
 	r.GET("/api/team/:id", ginning.TeamById)
+	r.GET("/api/player/:id", ginning.PlayerById)
 	r.Run(":8080")
 
 }

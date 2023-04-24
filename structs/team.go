@@ -13,7 +13,7 @@ type Team struct {
 	City        City
 	CityID      int
 	FoundedYear int
-	Players		[]Player
+	Players     []Player
 }
 
 var names = [20]string{"Hawks", "Eagels", "Bulls", "Titans",
@@ -21,7 +21,7 @@ var names = [20]string{"Hawks", "Eagels", "Bulls", "Titans",
 	"Parrots", "Dolphins", "Panthers", "Jaguars", "Capybaras",
 	"Dinosaurs", "Rocks", "Meteors", "Alligators", "Raiders"}
 
-func AddRandomTeams()bool {
+func AddRandomTeams() bool {
 	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
 	if err != nil {
 		return false
@@ -33,25 +33,25 @@ func AddRandomTeams()bool {
 	db.Find(&cities)
 
 	for i := 0; i < 20; i++ {
-	
-	citiesCount := len(cities)
-	randCityId := cities[rand.Intn(citiesCount)].ID
-	var city City
-	db.First(&city, randCityId)
 
-	randName := names[rand.Intn(len(names))]
+		citiesCount := len(cities)
+		randCityId := cities[rand.Intn(citiesCount)].ID
+		var city City
+		db.First(&city, randCityId)
 
-	team := Team {Name: city.Name + " " + randName, CityID: city.ID, FoundedYear: rand.Intn(40) + 1980}
+		randName := names[rand.Intn(len(names))]
 
-	db.Create(&team)
-}
+		team := Team{Name: city.Name + " " + randName, CityID: city.ID, FoundedYear: rand.Intn(40) + 1980}
+
+		db.Create(&team)
+	}
 	return true
 }
 
-func RandomTeamID() int64{
+func RandomTeamID() int64 {
 	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
 	if err != nil {
-		
+
 	}
 
 	var teamCount int64
@@ -61,7 +61,7 @@ func RandomTeamID() int64{
 	return rand.Int63n(teamCount)
 }
 
-func ReturnAllTeams()[]Team{
+func ReturnAllTeams() []Team {
 	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
 	if err != nil {
 		return []Team{}
@@ -72,7 +72,7 @@ func ReturnAllTeams()[]Team{
 	return teams
 }
 
-func ReturnTeamByID(id string) Team{
+func ReturnTeamByID(id string) Team {
 	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
 	if err != nil {
 		return Team{}
@@ -81,7 +81,7 @@ func ReturnTeamByID(id string) Team{
 	var team Team
 
 	db.Preload("Players").Preload("City").First(&team, id)
-	
+
 	for i := 0; i < len(team.Players); i++ {
 		team.Players[i].Team = nil
 	}
