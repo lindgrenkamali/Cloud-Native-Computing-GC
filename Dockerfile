@@ -1,4 +1,4 @@
-FROM golang
+FROM golang:alpine
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY templates/* ./templates/
 COPY gin/* ./gin/
 COPY db/* ./db/
 
-RUN go build -o /gc
+RUN CGO_ENABLED=1 go build -o /gc
 
 EXPOSE 8080
 
