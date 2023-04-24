@@ -28,6 +28,13 @@ func AddRandomTeams() bool {
 	}
 
 	db.AutoMigrate(&Team{})
+
+	var count int64
+	db.Model(&Team{}).Count(&count)
+
+	if count < 1 {
+		
+	
 	var cities []City
 
 	db.Find(&cities)
@@ -46,6 +53,8 @@ func AddRandomTeams() bool {
 		db.Create(&team)
 	}
 	return true
+}
+return false
 }
 
 func RandomTeamID() int64 {

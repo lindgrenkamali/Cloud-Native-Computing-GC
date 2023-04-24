@@ -64,6 +64,13 @@ func AddRandomPlayersForTeams() bool {
 		return false
 	}
 
+	db.AutoMigrate(&Player{})
+
+	var count int64
+	db.Model(&Player{}).Count(&count)
+
+	if count < 1 {
+		
 	var teams []Team
 
 	db.Find(&teams)
@@ -79,6 +86,8 @@ func AddRandomPlayersForTeams() bool {
 
 	return true
 }
+return false
+}
 
 func ReturnPlayerByID(id string) Player {
 	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
@@ -88,7 +97,7 @@ func ReturnPlayerByID(id string) Player {
 
 	var player Player
 
-	db.First(&player, id)
+	db.Preload("Team").First(&player, id)
 
 	return player
 

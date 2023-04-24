@@ -1,0 +1,12 @@
+phases:
+  install:
+    commands:
+  build:
+    commands:
+      - docker build -t git.systementor.se/David.Lindgren.Kamali/gc .
+      - docker login -u David.Lindgren.Kamali -p yacloud1 https://git.systementor.se
+      - docker push git.systementor.se/David.Lindgren.Kamali/gc
+artifacts:
+  files:
+    - "testimage.tar"
+  name: testimage_${GOOS}_${GOARCH}_$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
