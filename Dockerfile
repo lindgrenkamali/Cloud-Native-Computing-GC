@@ -10,7 +10,7 @@ COPY templates/* ./templates/
 COPY gin/* ./gin/
 COPY db/* ./db/
 
-RUN CGO_ENABLED=1 go build -o /gc
+RUN go build -o /gc
 
 EXPOSE 8080
 
