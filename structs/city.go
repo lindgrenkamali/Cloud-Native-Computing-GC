@@ -4,7 +4,6 @@ import (
 	"math/rand"
 
 	"gorm.io/driver/sqlite"
-
 	"gorm.io/gorm"
 )
 
@@ -27,7 +26,7 @@ func RandomCity() (city string) {
 }
 
 func AddCities() bool {
-	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
 	if err != nil {
 		return false
 	}

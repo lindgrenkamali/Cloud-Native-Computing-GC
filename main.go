@@ -8,8 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+
 func main() {
+	
 	r := gin.Default()
+	structs.GetConfig()
 	structs.AddCities()
 	structs.AddRandomTeams()
 	structs.AddRandomPlayersForTeams()
@@ -22,3 +25,4 @@ func main() {
 	r.Run(":8080")
 
 }
+

@@ -37,7 +37,7 @@ func randomName() (fullname string) {
 }
 
 func AddRandomPlayerWithTeamID(id int) bool {
-	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
 	if err != nil {
 		return false
 	}
@@ -59,7 +59,7 @@ func AddRandomPlayerWithTeamID(id int) bool {
 
 func AddRandomPlayersForTeams() bool {
 
-	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
 	if err != nil {
 		return false
 	}
@@ -90,7 +90,7 @@ return false
 }
 
 func ReturnPlayerByID(id string) Player {
-	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
 	if err != nil {
 		return Player{}
 	}
@@ -100,5 +100,5 @@ func ReturnPlayerByID(id string) Player {
 	db.Preload("Team").First(&player, id)
 
 	return player
-
+	
 }

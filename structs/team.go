@@ -22,7 +22,7 @@ var names = [20]string{"Hawks", "Eagels", "Bulls", "Titans",
 	"Dinosaurs", "Rocks", "Meteors", "Alligators", "Raiders"}
 
 func AddRandomTeams() bool {
-	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
 	if err != nil {
 		return false
 	}
@@ -52,13 +52,16 @@ func AddRandomTeams() bool {
 
 		db.Create(&team)
 	}
+	
+
 	return true
 }
 return false
 }
 
+
 func RandomTeamID() int64 {
-	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
 	if err != nil {
 
 	}
@@ -71,7 +74,7 @@ func RandomTeamID() int64 {
 }
 
 func ReturnAllTeams() []Team {
-	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
 	if err != nil {
 		return []Team{}
 	}
@@ -82,7 +85,7 @@ func ReturnAllTeams() []Team {
 }
 
 func ReturnTeamByID(id string) Team {
-	db, err := gorm.Open(sqlite.Open("db/gc"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
 	if err != nil {
 		return Team{}
 	}
