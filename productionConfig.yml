@@ -1,2 +1,7 @@
 database:
-  file: db/production/gc
+  file:
+  sql_user: "root"
+  sql_pass: "Azzk-223"
+  sql_server: 127.0.0.1
+  sql_database: "Cloud"
+  sql_port: 3307

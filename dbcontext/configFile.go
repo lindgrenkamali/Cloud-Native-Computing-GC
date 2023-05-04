@@ -1,4 +1,4 @@
-package structs
+package dbcontext
 
 import (
 	"os"
@@ -9,6 +9,12 @@ import (
 type ConfigFile struct {
 	Database struct {
 		File string `yaml:"file" envconfig:"DB_FILE"`
+		Username string `yaml:"sql_user" envconfig:"DB_USERNAME"`
+		Password string `yaml:"sql_pass" envconfig:"DB_PASSWORD"`
+		Name 	 string `yaml:"sql_database" envconfig:"DB_DATABASE"`
+		Server   string `yaml:"sql_server" envconfig:"DB_SERVER"`
+		Port     int    `yaml:"sql_port" envconfig:"DB_PORT"`
+
 	} `yaml:"database"`
 }
 
@@ -18,8 +24,8 @@ func GetConfig() {
 	e := os.Getenv("RUNENVIRONMENT")
 
 	if len(e) > 0 {
-
 		fileName = "dev" + fileName
+		
 
 	} else {
 		fileName = "production" + fileName
@@ -32,5 +38,7 @@ func GetConfig() {
 	decoder.Decode(&config)
 	Config = config
 }
+
+
 
 var Config ConfigFile

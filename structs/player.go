@@ -1,10 +1,8 @@
 package structs
 
 import (
+	"GC/dbcontext"
 	"math/rand"
-
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 type Player struct {
@@ -37,12 +35,8 @@ func randomName() (fullname string) {
 }
 
 func AddRandomPlayerWithTeamID(id int) bool {
-	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
-	if err != nil {
-		return false
-	}
 
-	db.AutoMigrate(&Player{})
+	dbcontext.DB.AutoMigrate(&Player{})
 
 	fullName := randomName()
 	teamId := id
@@ -52,28 +46,23 @@ func AddRandomPlayerWithTeamID(id int) bool {
 
 	p := Player{Name: fullName, TeamID: int(teamId), JerseyNumber: int(jerseyNumber), BirthYear: int(birthYear)}
 
-	db.Create(&p)
+	dbcontext.DB.Create(&p)
 
 	return true
 }
 
 func AddRandomPlayersForTeams() bool {
 
-	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
-	if err != nil {
-		return false
-	}
-
-	db.AutoMigrate(&Player{})
+	dbcontext.DB.AutoMigrate(&Player{})
 
 	var count int64
-	db.Model(&Player{}).Count(&count)
+	dbcontext.DB.Model(&Player{}).Count(&count)
 
 	if count < 1 {
 		
 	var teams []Team
 
-	db.Find(&teams)
+	dbcontext.DB.Find(&teams)
 
 	for i := 0; i < len(teams); i++ {
 		for j := 0; j < 5; j++ {
@@ -82,7 +71,7 @@ func AddRandomPlayersForTeams() bool {
 
 	}
 
-	db.AutoMigrate(&Player{})
+	dbcontext.DB.AutoMigrate(&Player{})
 
 	return true
 }
@@ -90,14 +79,10 @@ return false
 }
 
 func ReturnPlayerByID(id string) Player {
-	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
-	if err != nil {
-		return Player{}
-	}
 
 	var player Player
 
-	db.Preload("Team").First(&player, id)
+	dbcontext.DB.Preload("Team").First(&player, id)
 
 	return player
 	

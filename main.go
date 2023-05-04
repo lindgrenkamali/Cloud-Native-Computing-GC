@@ -2,6 +2,7 @@ package main
 
 import (
 	persons "GC/apis"
+	"GC/dbcontext"
 	ginning "GC/gin"
 	"GC/structs"
 
@@ -12,7 +13,8 @@ import (
 func main() {
 	
 	r := gin.Default()
-	structs.GetConfig()
+	dbcontext.GetConfig()
+	dbcontext.GetDB()
 	structs.AddCities()
 	structs.AddRandomTeams()
 	structs.AddRandomPlayersForTeams()

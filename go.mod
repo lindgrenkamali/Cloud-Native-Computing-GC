@@ -4,7 +4,10 @@ go 1.20
 
 require github.com/glebarez/sqlite v1.8.0
 
-require github.com/mattn/go-sqlite3 v1.14.16 // indirect
+require (
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
+	github.com/mattn/go-sqlite3 v1.14.16 // indirect
+)
 
 require (
 	github.com/bytedance/sonic v1.8.7 // indirect
@@ -38,6 +41,7 @@ require (
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	gorm.io/driver/mysql v1.5.0
 	gorm.io/driver/sqlite v1.5.0
 	gorm.io/gorm v1.25.0 // indirect
 	modernc.org/libc v1.22.3 // indirect

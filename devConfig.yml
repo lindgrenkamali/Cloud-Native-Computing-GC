@@ -1,2 +1,7 @@
 database:
   file: db/dev/gc
+  sql_user: ""
+  sql_pass: ""
+  sql_server: 127.0.0.1
+  sql_database: "Cloud"
+  sql_port: 3306

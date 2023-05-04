@@ -1,10 +1,8 @@
 package structs
 
 import (
+	"GC/dbcontext"
 	"math/rand"
-
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 type City struct {
@@ -26,21 +24,17 @@ func RandomCity() (city string) {
 }
 
 func AddCities() bool {
-	db, err := gorm.Open(sqlite.Open(Config.Database.File), &gorm.Config{})
-	if err != nil {
-		return false
-	}
 
-	db.AutoMigrate(&City{})
+	dbcontext.DB.AutoMigrate(&City{})
 	var count int64
 
-	db.Model(&City{}).Count(&count)
+	dbcontext.DB.Model(&City{}).Count(&count)
 
 	if count < 1 {
 
 		for i := 0; i <= len(cities)-1; i++ {
 			tempCity := City{ID: i + 1, Name: cities[i]}
-			db.Create(&tempCity)
+			dbcontext.DB.Create(&tempCity)
 		}
 	}
 	return true
