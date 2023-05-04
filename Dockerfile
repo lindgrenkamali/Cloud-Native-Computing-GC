@@ -10,6 +10,7 @@ COPY templates/* ./templates/
 COPY gin/* ./gin/
 COPY db/* ./db/
 COPY *.yml ./
+COPY dbcontext/* ./dbcontext/
 
 RUN go build -o /gc
 
