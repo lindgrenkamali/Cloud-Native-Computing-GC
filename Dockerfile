@@ -9,6 +9,7 @@ COPY structs/* ./structs/
 COPY templates/* ./templates/
 COPY gin/* ./gin/
 COPY db/* ./db/
+COPY *.yml ./
 
 RUN go build -o /gc
 
