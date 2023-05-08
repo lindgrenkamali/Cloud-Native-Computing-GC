@@ -8,27 +8,25 @@ import (
 
 type ConfigFile struct {
 	Database struct {
-		File string `yaml:"file" envconfig:"DB_FILE"`
+		File     string `yaml:"file" envconfig:"DB_FILE"`
 		Username string `yaml:"sql_user" envconfig:"DB_USERNAME"`
 		Password string `yaml:"sql_pass" envconfig:"DB_PASSWORD"`
-		Name 	 string `yaml:"sql_database" envconfig:"DB_DATABASE"`
+		Name     string `yaml:"sql_database" envconfig:"DB_DATABASE"`
 		Server   string `yaml:"sql_server" envconfig:"DB_SERVER"`
 		Port     int    `yaml:"sql_port" envconfig:"DB_PORT"`
-
 	} `yaml:"database"`
 }
 
 func GetConfig() {
 	fileName := "Config.yml"
 
-	e := os.Getenv("RUNENVIRONMENT")
+	//e := os.Getenv("RUNENVIRONMENT")
 
-	if len(e) > 0 {
-		fileName = "dev" + fileName
-		
+	if true {
+		fileName = "production" + fileName
 
 	} else {
-		fileName = "production" + fileName
+		fileName = "dev" + fileName
 	}
 
 	f, _ := os.Open(fileName)
@@ -38,7 +36,5 @@ func GetConfig() {
 	decoder.Decode(&config)
 	Config = config
 }
-
-
 
 var Config ConfigFile
