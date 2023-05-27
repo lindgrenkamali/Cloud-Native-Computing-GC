@@ -16,4 +16,4 @@ RUN go build -o /gc
 
 EXPOSE 8080
 
-CMD ["/gc"]
+CMD [ "/gc" ]

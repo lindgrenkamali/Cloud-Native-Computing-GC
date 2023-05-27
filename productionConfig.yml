@@ -4,4 +4,4 @@ database:
   sql_pass: "Hejsan123"
   sql_server: "mysql"
   sql_database: "Cloud"
-  sql_port: 3307
+  sql_port: 3306
